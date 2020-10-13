@@ -1,0 +1,70 @@
+﻿@model Finance.Contracts.Response.Reports.ReportRespObj
+@{ var loanList = Model.CorporateCustomers.ToList(); }
+
+<div class="container">
+    <div class="row col-md-12">
+        <h2>CORPORATE LOAN CUSTOMER</h2>
+    </div>
+    <div class="row col-md-12">
+        <div><h5>FROM : <i>@(loanList.FirstOrDefault().From.Date.ToString("dd MMMM yyyy"))</i>&nbsp;&nbsp; TO : <i>@(loanList.FirstOrDefault().To.Date.ToString("dd MMMM yyyy"))</i></h5></div>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            TOTAL : @Html.DisplayFor(model => model.CorporateCustomers.FirstOrDefault().Total)
+        </h5>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            SUM : @Html.DisplayFor(model => model.CorporateCustomers.FirstOrDefault().Sum)
+        </h5>
+    </div>
+
+
+    <div style="margin-top:30px; font-size:14px;" class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Company Name</th>
+                    <th>Date of Incorporation</th>
+                    <th>Registration Number</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Company Director</th>
+                    <th>Politically Exposed</th>
+                    <th>Industry</th>
+                    <th>Incorporation Country</th>
+                    <th>Annual TurnOver</th>
+                    <th>Current Exposure</th>
+                    <th>Exposure Limit</th>
+                    <th>Shareholder Fund</th>
+                    <th>Relationship Manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CorporateCustomers)
+                {
+                <tr>
+                    <td>@(item.SN)</td>
+                    <td>@(item.CompanyName)</td>
+                    <td>@(item.DateOfIncorporation.Value.Date.ToString("MM/dd/yyyy"))</td>
+                    <td>@(item.RegistrationNumber)</td>
+                    <td>@(item.PhoneNumber)</td>
+                    <td>@(item.Email)</td>
+                    <td>@(item.Address)</td>
+                    <td>@(item.CompanyDirector)</td>
+                    <td>@(item.PoliticallyExposed)</td>
+                    <td>@(item.Industry)</td>
+                    <td>@(item.IncorporationCountry)</td>
+                    <td>@(item.AnnualTurnover)</td>
+                    <td>@(item.CurrentExposure)</td>
+                    <td>@(item.ExposureLimit)</td>
+                    <td>@(item.ShareholderFund)</td>
+                    <td>@(item.RelationshipManager)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

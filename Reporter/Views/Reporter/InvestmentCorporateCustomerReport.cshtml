@@ -1,0 +1,56 @@
+﻿@model Finance.Contracts.Response.Reports.ReportRespObj
+@{ var loanList = Model.CorporateInvestorCustomers.ToList(); }
+
+<div class="container">
+    <div class="row col-md-12">
+        <h2>CORPORATE INVESTMENT CUSTOMER</h2>
+    </div>
+    <div class="row col-md-12">
+        <div><h5>FROM : <i>@(loanList.FirstOrDefault().From.Date.ToString("dd MMMM yyyy"))</i>&nbsp;&nbsp; TO : <i>@(loanList.FirstOrDefault().To.Date.ToString("dd MMMM yyyy"))</i></h5></div>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            TOTAL : @Html.DisplayFor(model => model.CorporateInvestorCustomers.FirstOrDefault().Total)
+        </h5>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            SUM : @Html.DisplayFor(model => model.CorporateInvestorCustomers.FirstOrDefault().Sum)
+        </h5>
+    </div>
+
+
+    <div style="margin-top:30px; font-size:14px;" class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Company Name</th>
+                    <th>Date of Incorporation</th>
+                    <th>Size</th>
+                    <th>Phone Number</th>
+                    <th>Politically Exposed</th>
+                    <th>Industry</th>
+                    <th>Current Balance</th>
+                    <th>Relationship Manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CorporateInvestorCustomers)
+                {
+                <tr>
+                    <td>@(item.SN)</td>
+                    <td>@(item.CompanyName)</td>
+                    <td>@(item.DateOfIncorporation.Date.ToString("MM/dd/yyyy"))</td>
+                    <td>@(item.Size)</td>
+                    <td>@(item.PhoneNumber)</td>
+                    <td>@(item.PoliticallyExposed)</td>
+                    <td>@(item.Industry)</td>
+                    <td>@(item.CurrentBalance)</td>
+                    <td>@(item.RelationshipOfficer)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

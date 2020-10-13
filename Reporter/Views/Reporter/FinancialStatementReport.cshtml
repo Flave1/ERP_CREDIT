@@ -1,0 +1,178 @@
+﻿@model Finance.Contracts.Response.Reports.ReportRespObj
+@{ var count = 1; }
+@{ var parentCaption = string.Empty; }
+@{ var parentCaptionList = new List<string>();}
+@{ var fsList = Model.FSreports.ToList(); }
+@{ var captionList = Model.FSreports.ToList(); }
+@{ var subcaptionList = Model.FSreports.ToList(); }
+
+    <div class="container">
+        <div class="row col-md-12">
+            <h2>@Html.DisplayFor(model => model.FSreports.FirstOrDefault().CompanyName)</h2>
+        </div>
+        <div class="row col-md-12">
+            <div><h5> @Html.DisplayFor(model => model.FSreports.FirstOrDefault().StatementType)</div>
+        </div>
+        <div style="margin-top:10px;">
+            <h5>
+                as at : @(fsList.FirstOrDefault().RunDate.Date.ToString("dd MMMM yyyy"))
+            </h5>
+        </div>
+
+        <div style="margin-top:30px; font-size:14px; font-weight:500" class="row">
+            <div class="row col-md-12">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">@(fsList.FirstOrDefault().RunDate.Date.ToString("dd MMMM yyyy"))</div>
+                <div class="col-md-4">@(fsList.FirstOrDefault().PreRunDate.Date.ToString("dd MMMM yyyy"))</div>
+            </div>
+            <hr style="width:100%;text-align:left;margin:0">
+            @for (int i = 0; i <= Model.FSreports.ToList().Count(); i++)
+            {
+                fsList = Model.FSreports.Where(x => x.AccountTypeId == count).ToList();
+                if (fsList.Count() > 0)
+                {
+                    <div class="row col-md-12">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><b>@(fsList.FirstOrDefault().AccountType)</b></div>
+                        <div class="col-md-4"><b>@(fsList.FirstOrDefault().AccountType)</b></div>
+                    </div>
+                    <hr style="width:100%;text-align:left;margin:0">
+                    @foreach (var item in fsList)
+                    {
+                        @if (item.AccountType == fsList.FirstOrDefault(x => x.AccountTypeId == count)?.AccountType)
+                        {
+                            parentCaption = fsList.FirstOrDefault(x => x.AccountType == item.AccountType).ParentCaption;
+                            if (item.ParentCaption == parentCaption)
+                            {
+                                if (!parentCaptionList.Contains(item.ParentCaption))
+                                {
+                                    captionList = fsList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption).ToList();
+                                    <div class="row col-md-12">
+                                        <div class="col-md-4">@(item.ParentCaption)</div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4"></div>
+                                    </div>
+                                    <hr style="width:100%;text-align:left;margin:0">
+                                    foreach (var caption in captionList)
+                                    {
+                                        <div class="row col-md-12">
+                                            <div class="col-md-4">
+                                                <button data-toggle="collapse" data-target="#demo" type="button" class="btn btn-default btn-sm">
+                                                    <span class="fa fa-plus"></span>
+                                                </button>
+                                                @(caption.Caption)
+                                            </div>
+                                            <div class="col-md-4">@captionList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption && x.SubCaption == caption.SubCaption).Sum(x => x.CB).ToString("#,##0.00")</div>
+                                            <div class="col-md-4">@captionList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption && x.SubCaption == caption.SubCaption).Sum(x => x.CB).ToString("#,##0.00")</div>
+                                            <hr style="width:100%;text-align:left;margin:0">
+                                        </div>                                       
+                                        subcaptionList = captionList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption && x.SubCaption == caption.SubCaption).ToList();
+                                        foreach (var subcaption in subcaptionList)
+                                        {
+                                            <div id="demo" class="row collapse col-md-12">
+                                                <div class="col-md-4"><span style="margin-left:20px;">@(subcaption.SubCaption)</span></div>
+                                                <div class="col-md-4">@(subcaption.CB.ToString("#,##0.00"))</div>
+                                                <div class="col-md-4">@(subcaption.CB.ToString("#,##0.00"))</div>
+                                                <hr style="width:100%;text-align:left;margin:0">
+                                            </div>
+                                        }
+                                    }
+                                    parentCaptionList.Add(item.ParentCaption);
+                                }
+                            }
+                        }
+                    }
+                    <div class="row col-md-12">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">(@fsList.Sum(x => x.CB).ToString("#,##0.00"))</div>
+                        <div class="col-md-4">(@fsList.Sum(x => x.CB).ToString("#,##0.00"))</div>
+                    </div>
+                    <hr style="width:100%;text-align:left;margin:0">
+                    <div class="row col-md-12">
+                        <div class="col-md-4">@fsList.FirstOrDefault().ParentCaption</div>
+                        <div class="col-md-4">(@fsList.Sum(x => x.CB).ToString("#,##0.00"))</div>
+                        <div class="col-md-4">(@fsList.Sum(x => x.CB).ToString("#,##0.00"))</div>
+                    </div>
+                    <hr style="width:100%;text-align:left;margin:0">
+                }
+                count++;
+            }
+        </div>
+
+            @*<div style="margin-top:30px; font-size:14px;" class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>@(fsList.FirstOrDefault().RunDate.Date.ToString("MM/dd/yyyy"))</th>
+                            <th>@(fsList.FirstOrDefault().PreRunDate.Date.ToString("MM/dd/yyyy"))</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @for (int i = 0; i <= Model.FSreports.ToList().Count(); i++)
+                        {
+                            fsList = Model.FSreports.Where(x => x.AccountTypeId == count).ToList();
+                            if (fsList.Count() > 0)
+                            {
+                                <tr>
+                                    <td><b>@(fsList.FirstOrDefault().AccountType)</b></td>
+                                    <td><b>@(fsList.FirstOrDefault().AccountType)</b></td>
+                                    <td><b>@(fsList.FirstOrDefault().AccountType)</b></td>
+                                </tr>
+                                @foreach (var item in fsList)
+                                {
+                                    @if (item.AccountType == fsList.FirstOrDefault(x => x.AccountTypeId == count)?.AccountType)
+                                    {
+
+                                        parentCaption = fsList.FirstOrDefault(x => x.AccountType == item.AccountType).ParentCaption;
+                                        if (item.ParentCaption == parentCaption)
+                                        {
+                                            if (!parentCaptionList.Contains(item.ParentCaption))
+                                            {
+                                                captionList = fsList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption).ToList();
+                                                <tr>
+                                                    <td>@(item.ParentCaption)</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                foreach (var caption in captionList)
+                                                {
+                                                    <tr>
+                                                        <td>@(caption.Caption)</td>
+                                                        <td>@captionList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption && x.SubCaption == caption.SubCaption).Sum(x => x.CB)</td>
+                                                        <td>@captionList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption && x.SubCaption == caption.SubCaption).Sum(x => x.CB)</td>
+                                                    </tr>
+                                                    subcaptionList = captionList.Where(x => x.AccountType == item.AccountType && x.ParentCaption == item.ParentCaption && x.SubCaption == caption.SubCaption).ToList();
+                                                    foreach (var subcaption in subcaptionList)
+                                                    {
+                                                        <tr>
+                                                            <td>@(subcaption.SubCaption)</td>
+                                                            <td>@(subcaption.CB)</td>
+                                                            <td>@(subcaption.CB)</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                parentCaptionList.Add(item.ParentCaption);
+                                            }
+                                        }
+                                    }
+                                }
+                                <tr>
+                                    <td></td>
+                                    <td>(@fsList.Sum(x => x.CB))</td>
+                                    <td>(@fsList.Sum(x => x.CB))</td>
+                                </tr>
+                                <tr>
+                                    <td>@fsList.FirstOrDefault().ParentCaption</td>
+                                    <td>(@fsList.Sum(x => x.CB))</td>
+                                    <td>(@fsList.Sum(x => x.CB))</td>
+                                </tr>
+                            }
+
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>*@
+        </div>

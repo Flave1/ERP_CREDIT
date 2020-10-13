@@ -1,0 +1,68 @@
+﻿@model Finance.Contracts.Response.Reports.ReportRespObj
+@{ var loanList = Model.Loans.ToList(); }
+
+<div class="container">
+    <div class="row col-md-12">
+        <h2>LOAN REPORT</h2>
+    </div>
+    <div class="row col-md-12">
+        <div><h5>FROM : <i>@(loanList.FirstOrDefault().From.Date.ToString("dd MMMM yyyy"))</i>&nbsp;&nbsp; TO : <i>@(loanList.FirstOrDefault().To.Date.ToString("dd MMMM yyyy"))</i></h5></div>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            TOTAL : @Html.DisplayFor(model => model.Loans.FirstOrDefault().Total)
+        </h5>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            SUM : @Html.DisplayFor(model => model.Loans.FirstOrDefault().Sum)
+        </h5>
+    </div>
+
+
+    <div style="margin-top:30px; font-size:14px;" class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Loan No</th>
+                    <th>Product Name</th>
+                    <th>Account Number</th>
+                    <th>Customer Name</th>
+                    <th>Industry</th>
+                    <th>Disbursement Date</th>
+                    <th>Maturity Date</th>
+                    <th>Application Amount</th>
+                    <th>Disbursement Amount</th>
+                    <th>Tenor</th>
+                    <th>Interest Rate</th>
+                    <th>Total Interest</th>
+                    <th>Days in Overdue</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Loans)
+                {
+                <tr>
+                    <td>@(item.SN)</td>
+                    <td>@(item.LoanRefNumber)</td>
+                    <td>@(item.ProductName)</td>
+                    <td>@(item.LinkedAccountNumber)</td>
+                    <td>@(item.CustomerName)</td>
+                    <td>@(item.Industry)</td>
+                    <td>@(item.DisbursementDate.ToString("MM/dd/yyyy"))</td>
+                    <td>@(item.MaturityDate.ToString("MM/dd/yyyy"))</td>
+                    <td>@(item.ApplicationAmount.ToString("#,##0.00"))</td>
+                    <td>@(item.DisbursedAmount.ToString("#,##0.00"))</td>
+                    <td>@(item.Tenor)</td>
+                    <td>@(item.InterestRate)</td>
+                    <td>@(item.TotalInterest.ToString("#,##0.00"))</td>
+                    <td>@(item.NoOfDaysInOverdue)</td>
+                    <td>@(item.Description)</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

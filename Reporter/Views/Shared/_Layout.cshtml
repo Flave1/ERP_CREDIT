@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-toggleable-xl navbar-light bg-white border-bottom box-shadow ">
+            <div class="container-fluid">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <a class="btn btn-secondary  word-export" href="javascript:void(0)">
+                        <input type="radio" name="options" autocomplete="off" checked>
+                        Word <i style="font-size:24px" class="fa fa-file-word-o"></i>
+                    </a>
+                    <button class="btn btn-secondary" id="ExcelDownload">
+                        <input type="radio" name="options" autocomplete="off">
+                        Excel <i style="font-size:24px" class="fa fa-file-excel-o"></i>
+                    </button>
+                    <label class="btn btn-secondary" id="PDFDownload">
+                        <input type="radio" name="options" autocomplete="off">
+                        PDF <i style="font-size:24px" class="fa fa-file-pdf-o"></i>
+                    </label>
+                    <label class="btn btn-secondary" id="WebPageDownload">
+                        <input type="radio" name="options" autocomplete="off">
+                        Save web page <i style="font-size:24px" class="fa fa-cloud"></i>
+                    </label>
+                    <label class="btn btn-secondary" id="ImageDownload">
+                        <input type="radio" name="options" autocomplete="off">
+                        Save as image <i style="font-size:24px" class="fa fa-picture-o"></i>
+                    </label>
+                    <label class="btn btn-secondary" onclick="Copy();">
+                        <input type="radio" name="options" id="CopyLink" autocomplete="off">
+                        Copy Link <i style="font-size:24px" class="fa fa-copy"></i>
+                    </label>
+                    <label class="btn btn-secondary" id="PrintReport">
+                        <input type="radio" name="options" id="CopyLink" autocomplete="off">
+                        Print <i style="font-size:24px" class="fa fa-print"></i>
+                    </label>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid"  id="content">
+        <main role="main" class="pb-3" style="margin:auto;">
+            @RenderBody()
+        </main>
+    </div>
+    <div id="editor"></div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js">IDBCursor</script>
+    <script src="~/js/FileSaver.js"></script>
+    <script src="~/js/jquery.wordexport.js"></script>
+    <script src="~/js/jquery.table2excel.js"></script>
+
+    <script>
+        $('#PrintReport').click(function(){
+            Popup($('#content')[0].outerHTML);
+            function Popup(data) 
+            {
+                window.print();
+                return true;
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Copy() { 
+            alert(window.location.href + " Copied to clip board"); 
+        }
+         
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            var element = $("#content"); // global variable
+            var getCanvas; // global variable
+
+            $("#btn-Preview-Image").on('click', function () {
+                html2canvas(element, {
+                    onrendered: function (canvas) {
+                        $("#previewImage").append(canvas);
+                        getCanvas = canvas;
+                    }
+                });
+            });
+
+            $("#btn-Convert-Html2Image").on('click', function () {
+                var imgageData = getCanvas.toDataURL("image/png");
+                // Now browser starts downloading it instead of just showing it
+                var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+            });
+
+        });
+
+    </script>
+
+    <script>
+        $("#WebPageDownload").click(function (e) {
+            var blob = new Blob([$("html").html()], { type: "text/html;charset=utf-8" });
+            saveAs(blob, "Report.html");
+        });
+
+
+    </script>
+
+    <script>
+        jQuery(document).ready(function ($) {
+            $("a.word-export").click(function (event) {
+                $("#content").wordExport();
+            });
+        });
+    </script>
+
+    <script>
+
+        $("#ExcelDownload").click(function (e) {
+            $(".exportToExcel").click();
+        });
+
+        $(function () {
+            $(".exportToExcel").click(function (e) {
+                var table = $(this).prev('.table2excel');
+                if (table && table.length) {
+                    var preserveColors = (table.hasClass('table2excel_with_colors') ? true : false);
+                    $(table).table2excel({
+                        exclude: ".noExl",
+                        name: "Report",
+                        filename: "Report" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                        fileext: ".xls",
+                        exclude_img: true,
+                        exclude_links: true,
+                        exclude_inputs: true,
+                        preserveColors: preserveColors
+                    });
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+        $('#PDFDownload').click(function () {
+            doc.fromHTML($('#content').html(), 15, 15, {
+                'width': 170,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('Report.pdf');
+        });
+    </script>
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,300 @@
+﻿@model Finance.Contracts.Response.Reports.ReportRespObj
+
+<div class="container">
+    <div class="row col-md-12">
+        <h2>@Html.DisplayFor(model => model.OfferLetterDetails.CompanyName)</h2>
+    </div>
+    <div class="row col-md-12">
+        <div><h5>Loan Reference No: @Html.DisplayFor(model => model.OfferLetterDetails.LoanApplicationId)</h5></div>
+    </div>
+    <div class="row col-md-12">
+        <p>Dear @Html.DisplayFor(model => model.OfferLetterDetails.CustomerName)</p>
+    </div>
+    <div style="margin-top:10px;">
+        <h5>
+            SECTION 1 OFFER LETTER FOR CREDIT FACILITY
+        </h5>
+    </div>
+    <div style="font-size: 14px" class="table table-bordered">
+        <table class="table">
+            <tr>
+                <td width="40%">Lender</td>
+                <td width="60%">@Html.DisplayFor(model => model.OfferLetterDetails.CompanyName)</td>
+            </tr>
+            <tr>
+                <td>Name of the Borrower</td>
+                <td> @Html.DisplayFor(model => model.OfferLetterDetails.CustomerName)</td>
+            </tr>
+            <tr>
+                <td>Contact detail of borrower</td>
+                <td>
+                    @Html.DisplayFor(model => model.OfferLetterDetails.CustomerAddress),<br />
+                    @Html.DisplayFor(model => model.OfferLetterDetails.CustomerPhoneNumber),<br />
+                    @Html.DisplayFor(model => model.OfferLetterDetails.CustomerEmailAddress)
+                </td>
+            </tr>
+            <tr>
+                <td>Facility Type</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.ProductName)</td>
+            <tr>
+            <tr>
+                <td>Facility Amount</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.CurrencyName) @Html.DisplayFor(model => model.OfferLetterDetails.LoanAmount)</td>
+            <tr>
+            <tr>
+                <td>Purpose of the credit</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.Purpose)</td>
+            <tr>
+            <tr>
+                <td>Facility Tenor</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.Tenor) Days</td>
+            <tr>
+                <td>Repayment terms</td>
+                <td>Not applicable</td>
+            <tr>
+            <tr>
+                <td>Repayment day</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.Tenor) days from set-up</td>
+            <tr>
+            <tr>
+                <td>Repayment schedule</td>
+                <td>Not applicable</td>
+            <tr>
+            <tr>
+                <td>Prepayment Terms/Early Liquidation Terms</td>
+                <td>Not applicable</td>
+            <tr>
+            <tr>
+                <td>Late Repayment</td>
+                <td>This shall be penalties that will be borne by the borrower in the event of default in line with CBN guide to bank charges</td>
+            <tr>
+            <tr>
+                <td>Grace Period</td>
+                <td>A grace period of seven (7) days will be allowed within which there will be no penal charge on late repayments, after which a monthly penal charge of 1% flat on overdue amount, in addition to current rate of interest and management fees on the unpaid sum until full repayment will be applicable.</td>
+            <tr>
+            <tr>
+                <td>Expiry Date</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.Tenor) days from set-up</td>
+            </tr>
+            <tr>
+                <td>Pricing</td>
+                <td>@Html.DisplayFor(model => model.OfferLetterDetails.InterestRate) %</td>
+            </tr>
+            <tr>
+                <td>Interest Rate</td>
+                <td>
+                    @Html.DisplayFor(model => model.OfferLetterDetails.InterestRate) % per annum floating.  The interest rate advised is subject to change in line with money market conditions as advised by the Bank from time to time. Any future variation of interest rate as advised by the Bank will become effective after 10 business days notification to the Borrower unless the facility is fully repaid by the effective date of such reviewed rate
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 2 COLLATERAL
+        </h5>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 3 REPRESENTATIVES AND WARRANTIES
+        </h5>
+        <p>
+            The Borrower represents and warrants to the Bank that:<br />
+            a)     The Borrower has the power to borrow and has taken all necessary actions to authorise the borrowing of the loan upon its terms and conditions and to authorise the execution, delivery and performance of all terms and conditions herein stated.<br />
+            b)    There has been no material adverse change in the Borrower’s financial position as represented to the Bank prior to the signing of this Offer Letter.<br />
+            c)     There is no bankruptcy proceeding pending against the Borrower which would affect the financial position of the Borrower.<br />
+            d)    The Borrower is not in default under any obligation in respect of any borrowed money and that the execution and performance of this loan obligation will not be or result in breach of or default under any provision of any agreements to which the Borrower is a party.<br />
+            e)     All consents, licenses, approvals, authorizations of any government authority, bureau or agency etc required in connection with the execution, delivery, performance, validity or enforceability of this offer letter, have been obtained by the Borrower and the conditions contained therein or otherwise applicable thereto have been  complied with or fulfilled.
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 4 EVENTS OF DEFAULT
+        </h5>
+        <p>
+            Without prejudice to the Bank’s right to demand repayment of any outstanding sum under the facility(ies) at any time, the Bank reserves the right to call in the lending should any of the following events occur:<br />
+            a)     If the Borrower fails to settle when due, any outstanding amount owed to and advised by the Bank.<br />
+            b)    If the Borrower defaults in the performance or the observance of any term, condition or covenant herein and such breach or default continues unremedied after fourteen days’ notice had been given to it.<br />
+            c)     If any representation or warranty by the Borrower proves to be incorrect in any material respect.<br />
+            d)    If the Borrower fails to provide any security required under this Offer Letter or the Borrower is unable to satisfactorily meet all requirements necessary to enable the Bank take any security contemplated in this Offer Letter.<br />
+            e)     If the Borrower’s creditors obtain a court order or injunction on the Borrower’s credit balances with the Bank or any other financial institution.<br />
+            f)      If an order is made or a petition is presented or if a distress or execution is levied upon or issued against the Borrower’s property and is not discharged within five days.<br />
+            g)    If an encumbrancer takes possession of, or a receiver is appointed over all or any part of the Borrower’s undertaking and assets.<br />
+            h)    If the Borrower is unable to pay its debt to any party.<br />
+            i)      If any extraordinary situation shall have arisen the continuance of which in the opinion of the Bank shall make it impossible that the Borrower will be able to perform its obligations under these presents<br />
+        </p>
+    </div>
+
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 5 ACCELERATION
+        </h5>
+        <p>
+            On or at any time after the occurrence of an Event of Default which is continuing the Bank may without notice to the Borrower:<br />
+            a.     cancel all or any part of the Facility(ies) whereupon the Facility(ies) shall immediately be cancelled;<br />
+            b.    declare that all or part of the Facility(ies), together with accrued interest, and all other amounts accrued or outstanding be immediately due and payable, whereupon they shall become immediately due and payable; and/or<br />
+            c.     declare that all or part of the Facilities be payable on demand, whereupon they shall immediately become payable on demand; and/or<br />
+            d.    exercise any or all of its rights (eg right of setoff, right to realise any collateral etc ), remedies, powers or discretions under this Offer Letter or Loan Agreement (if any).<br />
+            e. The failure or delay by the Bank in exercising any remedy, power or right as a lender shall not be considered as a waiver or impairment thereof nor shall it affect or impair any such remedies powers or rights in respect of any default.<br />
+            f. Notwithstanding any provision to the contrary in this Offer Letter, where the Borrower at any time during the subsistence of the Facility(ies) fails and/or neglects to provide any document required for the perfection of the Bank’s title to the Collateral within any timeline advised by the Bank, the Bank shall be entitled to, without notice or recourse to the Borrower, cancel the Facility(ies), whereupon the Facility(ies) shall become cancelled. All or part of the Facility(ies), together with accrued interest, and all other amounts accrued or outstanding shall thereupon immediately become due and payable.
+        </p>
+    </div>
+
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 6 ADDMISSION AND ACKNOWLEDGEMENT
+        </h5>
+        <p>
+            Any submission or acknowledgment in writing by the Borrower or by the person duly authorised on behalf of the Borrower on the amount of the indebtedness of the Borrower to the Bank or any Statement of Account furnished  by the Bank as true copy extracted from its books shall be binding and conclusive against the Borrower.
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 7 DEFAULT CHARGES
+        </h5>
+        <p>
+            If the Borrower fails to pay any sum due or to become due hereunder, the Borrower shall pay a monthly penal charge on the overdue amount in addition to being charged prevailing interest rate, management and processing fees on the unpaid sum from the date when such payment falls due to the date of payment.
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 8 CREDIT RELATED FEES
+        </h5>
+        <p>
+            a)     All term loans would be subject to annual review, and annual renewal fees would be charged on all term loans with maturity longer than one (1) year.<br />
+            b)    Advisory fee (negotiable but not below 0.5% of the facility amount) would be charged on all specialized credits and appropriate advisory service agreement would be put in place as a condition precedent.
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 9 INTEREST CAPITALIZATION
+        </h5>
+        <p>
+            If any interest payable shall remain unpaid after the day on which the same ought to have been paid, the same shall be added to the general balance of the account and shall bear interest at the rate applicable to this facility.
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 10 EXPENSES
+        </h5>
+        <p>
+            The Borrower agrees that all statutory and professional fees in relation to the perfection of security/collateral including but not limited to consent fees, registration fees, legal fees, consultancy fees, stamp duties, taxes (if any) and any other fee shall automatically be charged/debited to the account of the Borrower.<br />
+            Also, all costs, out-of-pocket expenses (including transportation) and other fees incurred by the Bank in the processing of this facility, enforcement and recovery of the facility shall be charged/debited to the account of the Borrower and the Borrower unconditionally authorises the Bank to debit its account(s) with any such costs and expenses as the Bank may consider necessary to achieve the successful recovery of the sums owing. Such costs and expenses shall form part of the Borrower’s indebtedness to the Bank due for payment
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 11 SETOFF
+        </h5>
+        <p>
+            In addition to any other general lien or similar right to which the Bank may be entitled by law, the Bank may at any time and without notice on the Borrower’s combine or consolidate all or any of the Borrower’s accounts with any liabilities to the Bank and set off or transfer any sum(s) standing to the credit of any one or more of such accounts in or towards the satisfaction of the Borrower’s liabilities to the Bank on any other account or in any other respect whether such liabilities be actual or contingent, primary or collateral, several or joint.
+        </p>
+    </div>
+    <div style="margin-bottom:20px;" class="row">
+        <h5>
+            SECTION 12 OTHER TERMS AND CONDITION
+        </h5>
+        <p>
+            a)      In line with the Bank’s policy to review facilities from time to time in light of changing market conditions, the Bank reserves the right at any time without notice, liability, cavil, let or hindrance and at its absolute discretion to convert any foreign currency facility to Naira, at the prevailing interbank foreign exchange rate on the date of conversion. The interest rate on the naira facility will default to the bank’s prime lending rate until re-negotiated.*<br />
+            b)      Approval of any request for extension of the facility at the expiration of the tenure hereby provided shall be at the discretion of the Bank and shall be subject to a fee of  ……% flat for new tenure as may be approved.<br />
+            c)      The Borrower hereby indemnifies the Bank against any loss that might be incurred by the Bank as a result of any irregularity or incompleteness in the information contained in any documents submitted to the Bank.<br />
+            d)      No change in the business operations and conditions (financial or otherwise) or in the prospects of the Borrower shall affect the full repayment of the facility at maturity.<br />
+            e)       This facility shall be utilized strictly for the purpose for which it is granted and on no condition should it be utilized for any other purpose.<br />
+            f)      This offer is subject to the availability of funds and the rules and regulations as enunciated from time to time by the Central Bank of Nigeria.<br />
+            g)      The Bank reserves the right to convert the facilities into any money market instrument and/or sell the entire debt or portion of it at its discretion and without recourse and/or consent from the Borrower.<br />
+            h)       This Offer Letter may be varied by the Bank at any time upon giving the Borrower 10 business days’ prior notification (“variation notice”) of the variation of any term or condition of this offer.  The variation shall be deemed effective by the 10th business day of the Bank’s notification to the Borrower provided that the Borrower shall be entitled to opt out by liquidating the facility(ies) on or before the 10th business day of the variation notice.<br />
+            i)       The Bank reserves the right to open a loan account, impersonal or suspense account (“Loan Account”) on whatever terms the Bank may think fit for the purpose of repayment and management of the facility(ies) as the Bank may from time to time conclusively determine in its absolute discretion.<br />
+        </p>
+    </div>
+    <div class="row">
+        <p>
+            <b>“Acceptance of the Bank's offer shall be required within 30 days of issuance of offer letter  and conditions met within 60 days from date of acceptance of offer, failing which the offer will lapse”.</b>
+            Kindly signify your acceptance of this offer by signing, sealing and returning the three copies of this offer letter.  Please also put across the face of the offer letter a postage stamp (with your Borrower’s seal duly affixed).
+        </p>
+    </div>
+    <div class="row">
+        <p>Yours faithfully,</p>
+    </div>
+    <div class="row">
+        <h5>For: @Html.DisplayFor(model => model.OfferLetterDetails.CompanyName)</h5>
+    </div>
+    <div style="margin-top:20px" class="row col-md-12">
+        <div class="col-md-4">
+            <p>Relationship Manager:..............................</p>
+            <p>Signature:.........................................</p>
+            <p>Date:..............................................</p>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <p>Relationship Manager:..............................</p>
+            <p>Signature:.........................................</p>
+            <p>Date:..............................................</p>
+        </div>
+    </div>
+    <div style="margin-top:20px" class="row">
+        <h5>ACCEPTANCE OF OFFER</h5>
+        <p>We hereby accept the terms and conditions of this offer as indicated above and we hereunder append our signatures to the effect accordingly.</p>
+    </div>
+    <div style="margin-bottom:10px" class="row">Accepted by</div>
+    <div class="row col-md-12">
+        <div class="col-md-4">
+            <p>Name:..............................</p>
+            <p>Designation........................................</p>
+            <p>Signature:.........................................</p>
+            <p>Date:..............................................</p>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <p>Name:..............................</p>
+            <p>Designation........................................</p>
+            <p>Signature:.........................................</p>
+            <p>Date:..............................................</p>
+        </div>
+    </div>
+    <div style="margin-bottom:10px" class="row">In the presence of</div>
+    <div class="row col-md-12">
+        <div class="col-md-4">
+            <p>Name:..............................</p>
+            <p>Designation........................................</p>
+            <p>Signature:.........................................</p>
+            <p>Date:..............................................</p>
+        </div>
+    </div>
+    <div style="margin-top:30px" class="row">
+        <p>For................................................................................................................................................................(The Borrower)</p>
+    </div>
+
+    <div style="margin-top:30px;" class="row">
+        <h5>REPAYMENT SCHEDULE</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Date</th>
+                    <th>Principal</th>
+                    <th>Interest</th>
+                    <th>Fees</th>
+                    <th>Payment Due</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OfferLetterRepayments)
+                {
+                    <tr>
+                        <td>@(item.PaymentNumber)</td>
+                        <td>@(item.PaymentDate.ToString("MM/dd/yyyy"))</td>
+                        <td>@(item.PeriodPrincipalAmount.ToString("#,##0.00"))</td>
+                        <td>@(item.PeriodInterestAmount.ToString("#,##0.00"))</td>
+                        <td>0.00</td>
+                        <td>@(item.PeriodPaymentAmount.ToString("#,##0.00"))</td>
+                        <td>@(item.EndPrincipalAmount.ToString("#,##0.00"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
