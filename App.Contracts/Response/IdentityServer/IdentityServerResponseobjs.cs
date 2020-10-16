@@ -84,6 +84,7 @@ namespace Banking.Contracts.Response.IdentityServer
         public bool IsSecurityQuestion { get; set; }
         public DateTime UnLockAt { get; set; }
         public APIResponseStatus Status { get; set; }
+
     }
 
     public class SecurityResp
