@@ -23,9 +23,9 @@ namespace Banking.Handlers.Auths
         {
             var response = new MiddlewareResponse { Status = new APIResponseStatus { Message = new APIResponseMessage() } };
             var userId = context.HttpContext.User?.FindFirst("userId")?.Value ?? string.Empty;
-            IEnumerable<string> thisUserRoleIds = new List<string>();
-            IEnumerable<string> thisUserRoleNames = new List<string>();
-            IEnumerable<string> roleActivities = new List<string>();
+            List<string> thisUserRoleIds = new List<string>();
+            List<string> thisUserRoleNames = new List<string>();
+            List<string> roleActivities = new List<string>();
             var thisUserRoleCan = false;
 
             if (string.IsNullOrEmpty(userId))
@@ -40,25 +40,23 @@ namespace Banking.Handlers.Auths
                 try
                 {
                     var scopedServices = scope.ServiceProvider;
+
                     var serverRequest = scopedServices.GetRequiredService<IIdentityServerRequest>();
 
-
                     var userroles = await serverRequest.GetUserRolesAsync();
+
                     var activities = await serverRequest.GetAllActivityAsync();
 
-                    thisUserRoleIds = userroles.UserRoles.Where(x => x.UserId == userId).ToList().Select(x => x.RoleId);
+                    thisUserRoleIds = userroles.UserRoles.Where(x => x.UserId == userId).Select(x => x.RoleId).ToList();
 
-
-                    thisUserRoleNames = (from userRole in userroles.UserRoles select userRole.RoleName).ToList();
+                    thisUserRoleNames = (from userRole in userroles.UserRoles select userRole?.RoleName).ToList();
 
                     roleActivities = (from activity in activities.Activities
                                       join userActivityRole
-                                      in userroles.UserRoleActivities on activity.ActivityId equals userActivityRole.ActivityId
+                                        in userroles.UserRoleActivities on activity.ActivityId equals userActivityRole.ActivityId
                                       select userActivityRole.RoleName).ToList();
 
-
                     bool hasMatch = roleActivities.Select(x => x).Intersect(thisUserRoleNames).Any();
-
                     if (hasMatch)
                     {
                         if (Action == UserActions.Add)
@@ -72,26 +70,21 @@ namespace Banking.Handlers.Auths
                         if (Action == UserActions.View)
                             thisUserRoleCan = userroles.UserRoleActivities.Any(x => thisUserRoleIds.Contains(x.RoleId) && x.ActivityId == Activity && x.CanView == true);
                     }
-
-
                     if (!thisUserRoleNames.Contains(StaticRoles.GODP))
                     {
                         if (!thisUserRoleCan)
                         {
-                            response.Status.Message.FriendlyMessage = GenericMiddlwareMessages.NO_PRIVILEGE;
+                            response.Status.Message.FriendlyMessage = "You don't have privilege to perform this action";
                             var contentResponse = new ContentResult
                             {
                                 Content = JsonConvert.SerializeObject(response),
                                 ContentType = "application/json",
                                 StatusCode = 403
-                            }; 
-                            context.HttpContext.Response.StatusCode = 403;
-                            context.Result = contentResponse;
-                            return;
+                            };
                         }
                     }
                     await next();
-
+                    return;
                 }
                 catch (Exception ex)
                 {
@@ -104,7 +97,7 @@ namespace Banking.Handlers.Auths
                         }
                     };
                     context.HttpContext.Response.StatusCode = 500;
-                    context.Result = new BadRequestObjectResult(contentResponse);
+                    context.Result = contentResponse;
                     return;
                 }
             }

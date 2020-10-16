@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banking", "App\Banking.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banking.Contracts", "App.Contracts\Banking.Contracts.csproj", "{FBB63A6A-C0B4-47BA-808C-77B9E636DF69}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reporter", "Reporter\Reporter.csproj", "{CB2F7387-C903-479B-8DCD-9C669A879BBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FBB63A6A-C0B4-47BA-808C-77B9E636DF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBB63A6A-C0B4-47BA-808C-77B9E636DF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBB63A6A-C0B4-47BA-808C-77B9E636DF69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB2F7387-C903-479B-8DCD-9C669A879BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB2F7387-C903-479B-8DCD-9C669A879BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB2F7387-C903-479B-8DCD-9C669A879BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB2F7387-C903-479B-8DCD-9C669A879BBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
